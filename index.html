@@ -49,6 +49,14 @@
         .mobile-menu {
             transition: all 0.3s ease;
         }
+        
+        .social-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .social-hover:hover {
+            transform: translateY(-3px);
+        }
     </style>
 </head>
 
@@ -414,134 +422,69 @@
     </div>
 </section>
 
-<script>
-    // Professional Slideshow Functionality
-    document.addEventListener('DOMContentLoaded', function () {
-        const slides = document.querySelectorAll('.slide');
-        const indicators = document.querySelectorAll('.slide-indicator');
-        const prevBtn = document.getElementById('prevBtn');
-        const nextBtn = document.getElementById('nextBtn');
-        const progressBar = document.getElementById('progressBar');
-        const slideCounter = document.getElementById('slideCounter');
+    <!-- ========== SOCIAL MEDIA SECTION ========== -->
+    <section id="social" class="py-12 sm:py-16 bg-white">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-8">
+                <span class="text-accent text-sm font-semibold uppercase tracking-widest">Connect With Us</span>
+                <h2 class="text-3xl sm:text-4xl font-heading font-bold text-primary mt-2 mb-4">
+                    Follow Our Journey
+                </h2>
+                <p class="text-gray-600 max-w-2xl mx-auto text-lg">
+                    Stay updated with our latest training sessions, player achievements, and academy events.
+                </p>
+            </div>
 
-        let currentSlide = 0;
-        let slideInterval;
-        const slideDuration = 5000; // 5 seconds per slide
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">
+                <!-- Instagram Card -->
+                <div class="bg-gradient-to-br from-purple-500 via-pink-500 to-orange-500 rounded-2xl overflow-hidden shadow-large">
+                    <div class="bg-white/10 backdrop-blur-sm p-6 h-full flex flex-col">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center mr-4">
+                                <i class="fab fa-instagram text-2xl text-transparent bg-gradient-to-br from-purple-500 to-pink-500 bg-clip-text"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-white">Instagram</h3>
+                                <p class="text-white/80 text-sm">@rainbowcricketacademy</p>
+                            </div>
+                        </div>
+                        <p class="text-white/90 mb-6 flex-grow">
+                            Follow us for behind-the-scenes training clips, player spotlights, match highlights, and academy updates.
+                        </p>
+                        <a href="https://instagram.com/rainbowcricketacademy" target="_blank" 
+                           class="social-hover inline-flex items-center justify-center bg-white text-gray-900 font-bold py-3 px-6 rounded-xl hover:shadow-xl transition-all duration-300">
+                            <i class="fab fa-instagram mr-2 text-lg text-pink-600"></i>
+                            Follow on Instagram
+                        </a>
+                    </div>
+                </div>
 
-        // Initialize slideshow
-        function initSlideshow() {
-            showSlide(0);
-            startAutoPlay();
-        }
+                <!-- YouTube Card -->
+                <div class="bg-gradient-to-br from-red-600 to-red-800 rounded-2xl overflow-hidden shadow-large">
+                    <div class="bg-white/10 backdrop-blur-sm p-6 h-full flex flex-col">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center mr-4">
+                                <i class="fab fa-youtube text-2xl text-red-600"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-white">YouTube</h3>
+                                <p class="text-white/80 text-sm">Rainbow Cricket Academy</p>
+                            </div>
+                        </div>
+                        <p class="text-white/90 mb-6 flex-grow">
+                            Watch comprehensive training tutorials, match highlights, player interviews, and coaching tips from our experts.
+                        </p>
+                        <a href="https://youtube.com/c/RainbowCricketAcademy" target="_blank" 
+                           class="social-hover inline-flex items-center justify-center bg-white text-gray-900 font-bold py-3 px-6 rounded-xl hover:shadow-xl transition-all duration-300">
+                            <i class="fab fa-youtube mr-2 text-lg text-red-600"></i>
+                            Subscribe on YouTube
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-        // Show specific slide
-        function showSlide(index) {
-            // Hide all slides
-            slides.forEach(slide => {
-                slide.style.opacity = '0';
-                slide.style.zIndex = '1';
-            });
-            
-            // Remove active class from indicators
-            indicators.forEach(indicator => indicator.classList.remove('active'));
-            
-            // Update current slide
-            currentSlide = index;
-            
-            // Show current slide
-            slides[currentSlide].style.opacity = '1';
-            slides[currentSlide].style.zIndex = '2';
-            
-            // Update active indicator
-            indicators[currentSlide].classList.add('active');
-            
-            // Update slide counter
-            slideCounter.textContent = `${currentSlide + 1} / ${slides.length}`;
-            
-            // Reset progress bar
-            resetProgressBar();
-        }
-
-        // Next slide
-        function nextSlide() {
-            const nextIndex = (currentSlide + 1) % slides.length;
-            showSlide(nextIndex);
-        }
-
-        // Previous slide
-        function prevSlide() {
-            const prevIndex = (currentSlide - 1 + slides.length) % slides.length;
-            showSlide(prevIndex);
-        }
-
-        // Start auto-play
-        function startAutoPlay() {
-            slideInterval = setInterval(nextSlide, slideDuration);
-        }
-
-        // Reset progress bar animation
-        function resetProgressBar() {
-            progressBar.style.transition = 'none';
-            progressBar.style.width = '0%';
-            
-            // Trigger reflow
-            progressBar.offsetHeight;
-            
-            // Animate progress bar
-            progressBar.style.transition = `width ${slideDuration}ms linear`;
-            progressBar.style.width = '100%';
-        }
-
-        // Event listeners
-        prevBtn.addEventListener('click', () => {
-            clearInterval(slideInterval);
-            prevSlide();
-            startAutoPlay();
-        });
-
-        nextBtn.addEventListener('click', () => {
-            clearInterval(slideInterval);
-            nextSlide();
-            startAutoPlay();
-        });
-
-        indicators.forEach((indicator, index) => {
-            indicator.addEventListener('click', () => {
-                clearInterval(slideInterval);
-                showSlide(index);
-                startAutoPlay();
-            });
-        });
-
-        // Keyboard navigation
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowLeft') {
-                clearInterval(slideInterval);
-                prevSlide();
-                startAutoPlay();
-            } else if (e.key === 'ArrowRight') {
-                clearInterval(slideInterval);
-                nextSlide();
-                startAutoPlay();
-            }
-        });
-
-        // Pause on hover
-        const slideshow = document.querySelector('.relative.overflow-hidden');
-        slideshow.addEventListener('mouseenter', () => {
-            clearInterval(slideInterval);
-            progressBar.style.transition = 'none';
-            progressBar.style.width = progressBar.style.width;
-        });
-
-        slideshow.addEventListener('mouseleave', () => {
-            startAutoPlay();
-        });
-
-        // Initialize the slideshow
-        initSlideshow();
-    });
-</script>
     <!-- ========== COACH SECTION ========== -->
     <section id="coach" class="py-12 sm:py-20 bg-white">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -686,30 +629,54 @@
 
     <!-- ========== FOOTER SECTION ========== -->
     <footer class="bg-gray-900 text-white py-8">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <div class="mb-4">
-                <p class="text-xl font-heading font-bold text-accent">Rainbow Cricket Academy</p>
-                <p class="text-xs text-gray-400 mt-1">Where passion meets precision.</p>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Academy Info -->
+                <div class="text-center md:text-left">
+                    <p class="text-xl font-heading font-bold text-accent">Rainbow Cricket Academy</p>
+                    <p class="text-xs text-gray-400 mt-1">Where passion meets precision.</p>
+                    <div class="mt-4">
+                        <p class="text-sm text-gray-300">Rainbow International School, Nagrota Bagwan</p>
+                        <p class="text-sm text-gray-300">Distt.: Kangra, Himachal Pradesh</p>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div class="text-center">
+                    <h4 class="text-lg font-bold text-white mb-4">Quick Links</h4>
+                    <div class="flex flex-col space-y-2">
+                        <a href="#about" class="text-gray-400 hover:text-accent transition duration-150 text-sm">Our Philosophy</a>
+                        <a href="#achievements" class="text-gray-400 hover:text-accent transition duration-150 text-sm">Success Stories</a>
+                        <a href="#coach" class="text-gray-400 hover:text-accent transition duration-150 text-sm">Our Coach</a>
+                        <a href="#contact" class="text-gray-400 hover:text-accent transition duration-150 text-sm">Join Us</a>
+                    </div>
+                </div>
+
+                <!-- Social Media & Contact -->
+                <div class="text-center md:text-right">
+                    <h4 class="text-lg font-bold text-white mb-4">Connect With Us</h4>
+                    <div class="flex justify-center md:justify-end space-x-4 mb-4">
+                        <a href="https://www.instagram.com/rainbow_cricket_academy__?igsh=MWp5em9vcnoybmYwbw==" target="_blank" 
+                           class="social-hover w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center text-white shadow-lg">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://youtube.com/@vikasrana1616?si=gUgEwLyjQVqRQxMY" target="_blank" 
+                           class="social-hover w-10 h-10 bg-red-600 rounded-full flex items-center justify-center text-white shadow-lg">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                    <div class="text-sm text-gray-400">
+                        <p>Mr. Vikas Rana: 7018419477, 9736147090</p>
+                        <p class="mt-1">info@rainbowcricketacademy.com</p>
+                    </div>
+                </div>
             </div>
 
-            <div class="flex justify-center space-x-4 mb-4">
-                <a href="#" class="text-gray-400 hover:text-accent transition duration-150"
-                    aria-label="Facebook">
-                    <i class="fab fa-facebook-f"></i>
-                </a>
-                <a href="#" class="text-gray-400 hover:text-accent transition duration-150"
-                    aria-label="Instagram">
-                    <i class="fab fa-instagram"></i>
-                </a>
-                <a href="#" class="text-gray-400 hover:text-accent transition duration-150"
-                    aria-label="YouTube">
-                    <i class="fab fa-youtube"></i>
-                </a>
+            <div class="border-t border-gray-800 mt-8 pt-6 text-center">
+                <p class="text-xs text-gray-500">
+                    &copy; 2025 Rainbow Cricket Academy. All rights reserved.
+                </p>
             </div>
-
-            <p class="text-xs text-gray-500">
-                &copy; 2025 Rainbow Cricket Academy. All rights reserved.
-            </p>
         </div>
     </footer>
 
@@ -828,4 +795,25 @@
                 } else if (e.key === 'ArrowRight') {
                     clearInterval(slideInterval);
                     nextSlide();
-                    start
+                    startAutoPlay();
+                }
+            });
+
+            // Pause on hover
+            const slideshow = document.querySelector('.relative.overflow-hidden');
+            slideshow.addEventListener('mouseenter', () => {
+                clearInterval(slideInterval);
+                progressBar.style.transition = 'none';
+                progressBar.style.width = progressBar.style.width;
+            });
+
+            slideshow.addEventListener('mouseleave', () => {
+                startAutoPlay();
+            });
+
+            // Initialize the slideshow
+            initSlideshow();
+        });
+    </script>
+</body>
+</html>
